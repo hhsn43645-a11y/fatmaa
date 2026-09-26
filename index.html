@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Love Website - fatma</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New&family=Dancing+Script&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  background-color: #0a0004;
+  overflow-x: hidden !important;
+  touch-action: pan-y;
+}
+
+body {
+  font-family: 'Scheherazade New', serif;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(135deg, #0a0004, #38040e, #590d22, #0a0004);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-bottom: 50px;
+  position: relative;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+#passwordScreen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 20px;
+  background: linear-gradient(135deg, #0a0004, #38040e, #590d22, #0a0004);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+#passwordScreen h2 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 34px;
+  margin-bottom: 25px;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
+}
+
+#passwordInput {
+  padding: 14px 20px;
+  font-size: 20px;
+  border-radius: 12px;
+  border: 2px solid #a4133c;
+  text-align: center;
+  outline: none;
+  width: 280px;
+  max-width: 85vw;
+  background: rgba(255, 255, 255, 0.95);
+  color: #2b0008;
+  font-weight: bold;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+#passwordButton {
+  margin-top: 20px;
+  padding: 12px 35px;
+  font-size: 20px;
+  border: none;
+  border-radius: 12px;
+  background: #c9184a;
+  color: #fff;
+  cursor: pointer;
+  font-family: 'Dancing Script', cursive;
+  box-shadow: 0 0 20px rgba(201, 24, 74, 0.8);
+  transition: transform 0.2s, background 0.2s;
+}
+
+#passwordButton:hover {
+  transform: scale(1.06);
+  background: #ff4d6d;
+}
+
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 22px;
+  animation: floatUp 8s linear forwards;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+.hidden {
+  display: none !important;
+  opacity: 0;
+}
+
+#mainContent {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 10px 15px 40px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity 1s ease;
+}
+
+.frame {
+  display: block;
+  margin: 25px auto 15px auto;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 0 35px rgba(255, 255, 255, 0.9);
+  width: 350px;
+  max-width: 90vw;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 1.6s ease, transform 1.6s ease;
+}
+
+.frame.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.relationship, .countdown, .poem, .final {
+  color: #fff;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  text-shadow: none;
+  width: 100%;
+}
+
+.relationship.show, .countdown.show, .poem.show, .final.show {
+  opacity: 1;
+}
+
+.relationship {
+  font-family: 'Dancing Script', cursive;
+  font-size: 30px;
+  margin-top: 20px;
+  color: #fff;
+}
+
+.countdown {
+  font-family: 'Dancing Script', cursive;
+  font-size: 25px;
+  margin-top: 12px;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.poem {
+  font-size: 30px;
+  line-height: 2.2;
+  min-height: 240px;
+  margin-top: 25px;
+  direction: rtl;
+  color: #fff;
+  word-wrap: break-word;
+}
+
+.final {
+  font-family: 'Great Vibes', cursive;
+  font-size: 38px;
+  margin-top: 25px;
+  margin-bottom: 40px;
+  color: #fff;
+}
+
+/* Mobile responsive fixes */
+@media (max-width: 600px) {
+  #passwordScreen h2 { font-size: 30px; }
+  .relationship { font-size: 28px; }
+  .countdown { font-size: 23px; }
+  .poem { font-size: 27px; line-height: 2.1; min-height: 220px; }
+  .final { font-size: 34px; }
+  .frame { width: 320px; max-width: 88vw; margin-top: 15px; }
+}
+</style>
+</head>
+<body>
+
+<div id="passwordScreen">
+  <h2>💖 Enter Password 💖</h2>
+  <input type="password" id="passwordInput" placeholder="Password" autocomplete="off">
+  <button id="passwordButton" type="button">Enter</button>
+</div>
+
+<div id="mainContent" class="hidden">
+  <div class="frame" id="eyeFrame">
+    <img src="https://i.ibb.co/hJJM6JtT/IMG-4883.jpg" alt="Eyes">
+  </div>
+  <div class="relationship" id="relationship">✨ Since we were together ✨</div>
+  <div class="countdown" id="countdown"></div>
+  <div class="poem" id="poem"></div>
+  <div class="final" id="final"></div>
+</div>
+
+<script>
+// Obfuscated & Protected Core Logic
+(function(){
+  // Anti-Theft & Shortcut Protection
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if (
+      e.keyCode === 123 || 
+      (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) ||
+      (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67))
+    ) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setInterval(createHeart, 500);
+    
+    const passwordInput = document.getElementById("passwordInput");
+    const passwordButton = document.getElementById("passwordButton");
+    
+    passwordInput.addEventListener("keydown", e => {
+      if (e.key === "Enter") handlePassword();
+    });
+    passwordButton.addEventListener("click", handlePassword);
+
+    function handlePassword() {
+      const input = passwordInput.value.trim();
+      if (input === "fatma") {
+        const pScreen = document.getElementById("passwordScreen");
+        const main = document.getElementById("mainContent");
+        
+        // Smooth transition out of password screen
+        pScreen.style.opacity = "0";
+        pScreen.style.transform = "scale(0.95)";
+        
+        setTimeout(() => {
+          pScreen.style.display = "none";
+          main.classList.remove("hidden");
+          main.style.opacity = "0";
+          
+          requestAnimationFrame(() => {
+            main.style.opacity = "1";
+          });
+          
+          setTimeout(() => document.getElementById("eyeFrame").classList.add("show"), 200);
+          setTimeout(() => document.getElementById("relationship").classList.add("show"), 1000);
+          setTimeout(() => document.getElementById("countdown").classList.add("show"), 1400);
+          setTimeout(() => document.getElementById("poem").classList.add("show"), 1800);
+          setTimeout(() => document.getElementById("final").classList.add("show"), 2800);
+          
+          startWebsite();
+        }, 800);
+      } else {
+        alert("Wrong password!");
+        passwordInput.focus();
+      }
+    }
+  });
+
+  function startWebsite() {
+    const poemLines = [
+      "عيونك نور يملأ قلبي،",
+      "فيها الأمان وفيها حبي،",
+      "عيناك بحر ولم أبلغ سواحله،",
+      "بل تهت فيه وضيعت اتجاهاتي."
+    ];
+    let index = 0;
+    const poemDiv = document.getElementById("poem");
+    const finalDiv = document.getElementById("final");
+
+    function showLine() {
+      if (index < poemLines.length) {
+        let line = poemLines[index];
+        let i = 0;
+        let interval = setInterval(() => {
+          poemDiv.innerHTML += line[i];
+          i++;
+          if (i === line.length) {
+            clearInterval(interval);
+            poemDiv.innerHTML += "<br>";
+            index++;
+            setTimeout(showLine, 900);
+          }
+        }, 100);
+      } else {
+        showFinalText("I love you, fatma ✨");
+      }
+    }
+    showLine();
+
+    function showFinalText(text) {
+      finalDiv.textContent = "";
+      let chars = text.split("");
+      let i = 0;
+      function typeChar() {
+        finalDiv.textContent += chars[i];
+        i++;
+        if (i < chars.length) {
+          setTimeout(typeChar, 150);
+        } else {
+          setTimeout(triggerHeartExplosion, 300);
+        }
+      }
+      typeChar();
+    }
+
+    const startDate = new Date("2023-01-01T00:00:00");
+    function updateCountdown() {
+      const now = new Date();
+      const diff = now - startDate;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      document.getElementById("countdown").textContent = `${days} days ${hours}h ${minutes}m ${seconds}s`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  }
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    const heartIcons = ["❤️", "💖", "🌹", "💕", "💗"];
+    heart.textContent = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = (18 + Math.random() * 8) + "px";
+    heart.style.animationDuration = (6 + Math.random() * 4) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 10000);
+  }
+
+  function triggerHeartExplosion() {
+    const container = document.createElement("div");
+    container.style.position = "fixed";
+    container.style.inset = "0";
+    container.style.pointerEvents = "none";
+    container.style.zIndex = "9999";
+    document.body.appendChild(container);
+
+    const icons = ["❤️", "💖", "💕", "✨", "🌹", "💗", "💘"];
+    for (let i = 0; i < 70; i++) {
+      setTimeout(() => {
+        const particle = document.createElement("div");
+        particle.textContent = icons[Math.floor(Math.random() * icons.length)];
+        particle.style.position = "absolute";
+        particle.style.left = "50%";
+        particle.style.top = "60%";
+        particle.style.fontSize = (22 + Math.random() * 26) + "px";
+        particle.style.transform = "translate(-50%, -50%)";
+
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = 150 + Math.random() * 380;
+        const tx = Math.cos(angle) * velocity;
+        const ty = Math.sin(angle) * velocity - 120;
+
+        particle.style.transition = "transform 2s cubic-bezier(0.1, 0.8, 0.3, 1), opacity 2s ease";
+        particle.style.opacity = "1";
+        container.appendChild(particle);
+
+        requestAnimationFrame(() => {
+          particle.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(${0.8 + Math.random() * 0.9})`;
+          particle.style.opacity = "0";
+        });
+
+        setTimeout(() => particle.remove(), 2200);
+      }, i * 25);
+    }
+  }
+})();
+</script>
+</body>
+</html>
